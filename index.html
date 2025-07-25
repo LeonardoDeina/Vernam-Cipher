@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifra de Vernam - Início</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        header .logo.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            padding: 5px 0;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        nav ul li a.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+
+        .hero-section {
+            padding: 60px 20px;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+        }
+
+        .hero-section h1 {
+            color: #2c3e50;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        @media (min-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-card {
+            background-color: #e9ecef;
+            padding: 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .option-card h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .option-card p {
+            font-size: 1em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo active">Vernam Cipher</a> <nav>
+            <ul>
+                <li><a href="criptografar.html">Criptografar</a></li>
+                <li><a href="descriptografar.html">Descriptografar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <h1>Bem-vindo à Demonstração da Cifra de Vernam</h1>
+        <p>
+            Explore o poder da lógica na criptografia com a Cifra de Vernam, um método de segurança incondicional.
+            Escolha uma das opções abaixo para começar.
+        </p>
+
+        <div class="options-grid">
+            <a href="criptografar.html" class="option-card">
+                <h2>Criptografar Mensagem</h2>
+                <p>Transforme sua mensagem em um formato secreto usando uma chave única.</p>
+            </a>
+            <a href="descriptografar.html" class="option-card">
+                <h2>Descriptografar Mensagem</h2>
+                <p>Revele a mensagem original utilizando a mensagem cifrada e a chave correta.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

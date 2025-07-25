@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descriptografia Vernam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+        header .logo.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            padding: 5px 0;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        nav ul li a.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            flex-grow: 1;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            min-height: 80px;
+            resize: vertical;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .result-section p {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+        .result-section strong {
+            color: #2c3e50;
+        }
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Vernam Cipher</a> <nav>
+            <ul>
+                <li><a href="criptografar.html">Criptografar</a></li>
+                <li><a href="descriptografar.html" class="active">Descriptografar</a></li> </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Descriptografia Vernam (One-Time Pad)</h1>
+
+        <label for="encryptedMessageInput">Digite a Mensagem Cifrada (Binário):</label>
+        <textarea id="encryptedMessageInput" placeholder="Ex: 111001010001100100100010"></textarea>
+
+        <label for="keyInput">Digite a Chave Utilizada (Binário):</label>
+        <textarea id="keyInput" placeholder="Ex: 101010100101010111100001"></textarea>
+
+        <button onclick="decryptMessage()">Descriptografar Mensagem</button>
+
+        <div id="resultOutput" class="result-section">
+            </div>
+
+        <p class="warning">
+            Atenção: A chave utilizada deve ser EXATAMENTE a mesma usada para criptografar, e a Cifra de Vernam é incondicionalmente segura APENAS se a chave for verdadeiramente aleatória e usada uma única vez.
+        </p>
+    </div>
+
+    <script>
+        function stringToBinary(str) {
+            return str.split('').map(char => {
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            }).join('');
+        }
+
+        function binaryToString(bin) {
+            if (!bin || bin.length % 8 !== 0) {
+                return 'Erro: Entrada binária inválida (não múltiplos de 8 bits)';
+            }
+            return bin.match(/.{1,8}/g).map(byte => {
+                return String.fromCharCode(parseInt(byte, 2));
+            }).join('');
+        }
+
+        function vernamCipher(message, key) {
+            let resultBinary = '';
+            for (let i = 0; i < message.length; i++) {
+                resultBinary += (parseInt(message[i]) ^ parseInt(key[i]));
+            }
+            return resultBinary;
+        }
+
+        function decryptMessage() {
+            const encryptedMessageInput = document.getElementById('encryptedMessageInput');
+            const keyInput = document.getElementById('keyInput');
+            const resultOutput = document.getElementById('resultOutput');
+
+            const encryptedBinaryText = encryptedMessageInput.value.trim();
+            const keyBinaryText = keyInput.value.trim();
+
+            if (encryptedBinaryText === '' || keyBinaryText === '') {
+                resultOutput.innerHTML = '<p style="color: red;">Por favor, preencha ambos os campos (Mensagem Cifrada e Chave).</p>';
+                return;
+            }
+
+            if (!/^[01]+$/.test(encryptedBinaryText) || !/^[01]+$/.test(keyBinaryText)) {
+                resultOutput.innerHTML = '<p style="color: red;">Entradas inválidas. Apenas 0s e 1s são permitidos nos campos binários.</p>';
+                return;
+            }
+
+            if (encryptedBinaryText.length !== keyBinaryText.length) {
+                resultOutput.innerHTML = '<p style="color: red;">Erro: O comprimento da mensagem cifrada deve ser EXATAMENTE o mesmo da chave.</p>';
+                return;
+            }
+
+            const decryptedBinary = vernamCipher(encryptedBinaryText, keyBinaryText);
+            const decryptedMessage = binaryToString(decryptedBinary);
+
+            resultOutput.innerHTML = `
+                <p><strong>Mensagem Original Descriptografada:</strong><br>${decryptedMessage}</p>
+                <p style="font-size: 0.9em; color: #666;">
+                    Verifique se a mensagem é legível. Se não for, a chave pode estar incorreta ou a mensagem cifrada adulterada.
+                </p>
+            `;
+        }
+    </script>
+</body>
+</html>
