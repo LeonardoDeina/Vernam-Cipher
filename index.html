@@ -16,7 +16,7 @@
             align-items: center;
             min-height: 100vh;
             text-align: center;
-            padding-top: 70px; /* Base padding for fixed header */
+            padding-top: 70px; 
         }
 
         header {
@@ -30,7 +30,7 @@
             left: 0;
             z-index: 1000;
             display: flex;
-            justify-content: space-between; /* Pushes logo left, hamburger right */
+            justify-content: space-between; 
             align-items: center;
             box-sizing: border-box;
         }
@@ -43,7 +43,7 @@
             border-bottom: 2px solid transparent;
             transition: color 0.3s ease, border-bottom 0.3s ease;
             white-space: nowrap;
-            flex-shrink: 0; /* Prevent logo from shrinking */
+            flex-shrink: 0; 
         }
 
         header .logo.active {
@@ -52,7 +52,7 @@
         }
 
         .hamburger-icon {
-            display: none; /* Hidden by default, shown on small screens */
+            display: none; 
             flex-direction: column;
             justify-content: space-around;
             width: 30px;
@@ -71,11 +71,11 @@
         }
 
         nav {
-            position: absolute; /* Position nav absolutely for mobile */
-            top: 65px; /* Position below the header */
+            position: absolute; 
+            top: 65px; 
             left: 0;
             width: 100%;
-            background-color: #2c3e50; /* Same as header background */
+            background-color: #2c3e50; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             max-height: 0; /* Hidden by default */
@@ -84,7 +84,7 @@
         }
 
         nav.responsive {
-            max-height: 150px; /* Show when active. Adjust as needed for more links */
+            max-height: 150px; 
         }
 
         nav ul {
@@ -95,27 +95,27 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            padding: 10px 0; /* Add some padding inside the dropdown menu */
+            padding: 10px 0; 
         }
 
         nav ul li {
             margin: 5px 0;
-            width: 100%; /* Make list items take full width for better touch target */
+            width: 100%; 
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
             font-size: 16px;
-            padding: 10px 20px; /* Increased padding for better touch target */
-            display: block; /* Make links block-level for full-width click area */
+            padding: 10px 20px; 
+            display: block; 
             transition: color 0.3s ease, background-color 0.3s ease;
-            white-space: nowrap; /* Prevent nav links from wrapping */
+            white-space: nowrap;
         }
 
         nav ul li a:hover {
             color: #3498db;
-            background-color: rgba(0, 0, 0, 0.2); /* Subtle hover effect */
+            background-color: rgba(0, 0, 0, 0.2);
         }
         nav ul li a.active {
             color: #3498db;
@@ -156,35 +156,35 @@
 
         @media (max-width: 599px) {
             .hamburger-icon {
-                display: flex; /* Show hamburger icon */
+                display: flex; 
             }
 
             header {
-                justify-content: space-between; /* Ensures logo and hamburger are on opposite ends */
+                justify-content: space-between; 
             }
 
             nav {
-                position: fixed; /* Keep nav fixed below header when open */
-                top: 65px; /* Adjust if header height changes */
+                position: fixed; 
+                top: 65px; 
             }
 
             body.menu-open {
-                padding-top: 200px; /* Adjust this value if the dropdown menu makes the header taller */
-                                   /* This prevents content from jumping when menu opens */
+                padding-top: 200px; 
+                                   
             }
         }
 
         @media (min-width: 600px) {
             nav {
-                position: static; /* Reset position for desktop */
-                max-height: none; /* Always show on desktop */
+                position: static; 
+                max-height: none;
                 width: auto;
                 box-shadow: none;
                 background-color: transparent;
             }
 
             nav ul {
-                flex-direction: row; /* Back to row on larger screens */
+                flex-direction: row; 
                 width: auto;
                 padding: 0;
             }
