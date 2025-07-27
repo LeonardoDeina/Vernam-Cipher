@@ -185,14 +185,14 @@
             width: 100%;
             text-align: left;
             box-sizing: border-box;
-            overflow-x: auto; /* Allow horizontal scrolling if text is too long */
+            overflow-x: auto;
         }
 
         .result-section p {
             margin-bottom: 10px;
             line-height: 1.6;
-            word-wrap: break-word; /* Ensures long words/binary strings break to fit */
-            overflow-wrap: break-word; /* Modern property for word-wrap */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .result-section strong {
@@ -286,7 +286,7 @@
         </div>
         <button onclick="encryptMessage()">Criptografar</button>
         <div id="resultOutput" class="result-section">
-            
+
         </div>
     </div>
 
