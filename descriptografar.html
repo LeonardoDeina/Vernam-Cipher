@@ -13,6 +13,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding-top: 70px; /* Adjust for fixed header */
         }
 
         header {
@@ -20,9 +21,15 @@
             color: white;
             padding: 15px 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-sizing: border-box;
         }
 
         header .logo {
@@ -32,35 +39,79 @@
             text-decoration: none;
             border-bottom: 2px solid transparent;
             transition: color 0.3s ease, border-bottom 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         header .logo.active {
             color: #3498db;
             border-bottom: 2px solid #3498db;
         }
 
+        .hamburger-icon {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            padding: 5px;
+            box-sizing: content-box;
+        }
+
+        .hamburger-icon div {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            position: absolute;
+            top: 65px;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease-out;
+            text-align: center;
+        }
+
+        nav.responsive {
+            max-height: 150px;
+        }
 
         nav ul {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 10px 0;
         }
 
         nav ul li {
-            margin-left: 25px;
+            margin: 5px 0;
+            width: 100%;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
-            font-size: 17px;
-            padding: 5px 0;
-            transition: color 0.3s ease, border-bottom 0.3s ease;
-            border-bottom: 2px solid transparent;
+            font-size: 16px;
+            padding: 10px 20px;
+            display: block;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            white-space: nowrap;
         }
 
         nav ul li a:hover {
             color: #3498db;
+            background-color: rgba(0, 0, 0, 0.2);
         }
         nav ul li a.active {
             color: #3498db;
@@ -68,115 +119,187 @@
         }
 
         .container {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
             background-color: #fff;
-            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            margin: 40px auto;
-            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
         }
+
         h1 {
             color: #2c3e50;
-            text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
+
+        .input-group {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
         }
-        textarea {
+
+        textarea, input[type="text"] {
             width: calc(100% - 20px);
             padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
-            min-height: 80px;
+            font-size: 1em;
+            box-sizing: border-box;
             resize: vertical;
         }
+
         button {
             background-color: #3498db;
             color: white;
-            padding: 12px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
+            font-size: 1.1em;
             cursor: pointer;
-            font-size: 18px;
-            width: 100%;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
+
         button:hover {
             background-color: #2980b9;
         }
+
         .result-section {
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .result-section p {
             background-color: #e9ecef;
-            padding: 10px;
-            border-left: 5px solid #3498db;
-            border-radius: 5px;
-            word-wrap: break-word;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            text-align: left;
+            box-sizing: border-box;
         }
+
+        .result-section p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
         .result-section strong {
             color: #2c3e50;
         }
-        .warning {
-            color: #e74c3c;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 15px;
+
+        @media (max-width: 599px) {
+            .hamburger-icon {
+                display: flex;
+            }
+
+            header {
+                justify-content: space-between;
+            }
+
+            nav {
+                position: fixed;
+                top: 65px;
+            }
+
+            body.menu-open {
+                padding-top: 200px;
+            }
+
+            .container {
+                padding: 15px;
+                margin: 15px auto;
+                width: calc(100% - 30px);
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (min-width: 600px) {
+            nav {
+                position: static;
+                max-height: none;
+                width: auto;
+                box-shadow: none;
+                background-color: transparent;
+            }
+
+            nav ul {
+                flex-direction: row;
+                width: auto;
+                padding: 0;
+            }
+
+            nav ul li {
+                margin-left: 25px;
+                margin-top: 0;
+                margin-bottom: 0;
+                width: auto;
+            }
+
+            nav ul li a {
+                font-size: 17px;
+                padding: 5px 0;
+                background-color: transparent;
+            }
+
+            .container {
+                margin-top: 80px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Vernam Cipher</a> <nav>
+        <a href="index.html" class="logo">Vernam Cipher</a>
+        <div class="hamburger-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <nav id="main-nav">
             <ul>
+                <li><a href="index.html">Início</a></li>
                 <li><a href="criptografar.html">Criptografar</a></li>
-                <li><a href="descriptografar.html" class="active">Descriptografar</a></li> </ul>
+            </ul>
         </nav>
     </header>
 
     <div class="container">
-        <h1>Descriptografia Vernam (One-Time Pad)</h1>
-
-        <label for="encryptedMessageInput">Digite a Mensagem Cifrada (Binário):</label>
-        <textarea id="encryptedMessageInput" placeholder="Ex: 111001010001100100100010"></textarea>
-
-        <label for="keyInput">Digite a Chave Utilizada (Binário):</label>
-        <textarea id="keyInput" placeholder="Ex: 101010100101010111100001"></textarea>
-
-        <button onclick="decryptMessage()">Descriptografar Mensagem</button>
-
+        <h1>Descriptografar Mensagem (Vernam)</h1>
+        <div class="input-group">
+            <label for="encryptedMessageInput">Mensagem Cifrada (Binário):</label>
+            <textarea id="encryptedMessageInput" rows="4" placeholder="Digite a mensagem cifrada binária aqui (ex: 01011010)..."></textarea>
+        </div>
+        <div class="input-group">
+            <label for="keyInput">Chave (Binário):</label>
+            <textarea id="keyInput" rows="4" placeholder="Digite a chave binária aqui (deve ter o mesmo comprimento da mensagem cifrada)..."></textarea>
+        </div>
+        <button onclick="decryptMessage()">Descriptografar</button>
         <div id="resultOutput" class="result-section">
             </div>
-
-        <p class="warning">
-            Atenção: A chave utilizada deve ser EXATAMENTE a mesma usada para criptografar, e a Cifra de Vernam é incondicionalmente segura APENAS se a chave for verdadeiramente aleatória e usada uma única vez.
-        </p>
     </div>
 
     <script>
-        function stringToBinary(str) {
-            return str.split('').map(char => {
-                return char.charCodeAt(0).toString(2).padStart(8, '0');
-            }).join('');
+        function toggleMenu() {
+            const nav = document.getElementById('main-nav');
+            const body = document.body;
+            nav.classList.toggle('responsive');
+            body.classList.toggle('menu-open');
         }
 
-        function binaryToString(bin) {
-            if (!bin || bin.length % 8 !== 0) {
-                return 'Erro: Entrada binária inválida (não múltiplos de 8 bits)';
-            }
-            return bin.match(/.{1,8}/g).map(byte => {
-                return String.fromCharCode(parseInt(byte, 2));
-            }).join('');
+        function binaryToString(binaryStr) {
+            return binaryStr.match(/.{1,8}/g).map(byte => String.fromCharCode(parseInt(byte, 2))).join('');
         }
 
         function vernamCipher(message, key) {
